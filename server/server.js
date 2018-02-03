@@ -32,6 +32,9 @@ io.on('connection', socket => {
    socket.on('createMessage', (data, callback) => {
       console.log('create message: ', data);
 
+      socket.emit('newMessage',
+         generateMessage('you', data.text));
+
       //broadcast to everyone except socket
       socket.broadcast.emit('newMessage',
          generateMessage(data.from, data.text));
