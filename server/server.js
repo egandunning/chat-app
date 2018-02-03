@@ -17,12 +17,30 @@ app.use(express.static(path.join(__dirname, '../public')));
 io.on('connection', socket => {
    console.log('new user connected');
 
+   socket.emit('newMessage', {
+      from: 'Admin',
+      text: 'Welcome to the chatroom!',
+      createdAt: Date.now()
+   });
+
+   socket.broadcast.emit('newMessage', {
+      from: 'Admin',
+      text: 'Someone joined the chatroom',
+      createdAt: Date.now()
+   });
+
    socket.on('createMessage', data => {
-      data.createdAt = Date.now();
       console.log('create message: ', data);
 
+      //broadcast to everyone except socket
+      socket.broadcast.emit('newMessage', {
+         from: data.from,
+         text: data.text,
+         createdAt: Date.now()
+      });
+
       //broadcast to all connected clients
-      io.emit('newMessage', data);
+      //io.emit('newMessage', data);
    });
 
    socket.emit('newMessage', {
