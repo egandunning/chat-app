@@ -13,13 +13,17 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 
+let connectionCount = 0;
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 //register an event listener
 io.on('connection', socket => {
    console.log('new user connected');
+   connectionCount++;
+   io.emit('connectionCountChanged', connectionCount);
 
-   socket.emit('newMessage', 
+   socket.emit('newMessage',
       generateMessage('Admin', 'Welcome to the chatroom!'));
 
    socket.broadcast.emit('newMessage',
@@ -40,6 +44,8 @@ io.on('connection', socket => {
 
    socket.on('disconnect', socket => {
       console.log('user disconnected');
+      connectionCount--;
+      io.emit('connectionCountChanged', connectionCount);
    });
 });
 

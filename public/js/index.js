@@ -19,6 +19,10 @@ socket.on('newMessage', function(data) {
    $('#messages').append(li);
 });
 
+socket.on('connectionCountChanged', function(count) {
+   $('#userCount').html(count);
+});
+
 $('#messageForm').on('submit', function(e) {
    //prevent page reload
    e.preventDefault();
