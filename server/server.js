@@ -25,12 +25,14 @@ io.on('connection', socket => {
    socket.broadcast.emit('newMessage',
       generateMessage('Admin', 'Someone joined the chatroom'));
 
-   socket.on('createMessage', data => {
+   socket.on('createMessage', (data, callback) => {
       console.log('create message: ', data);
 
       //broadcast to everyone except socket
       socket.broadcast.emit('newMessage',
          generateMessage(data.from, data.text));
+
+      callback('recieved message');
 
       //broadcast to all connected clients
       //io.emit('newMessage', data);
