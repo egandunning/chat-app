@@ -3,7 +3,7 @@ const path = require('path');
 const socketIO = require('socket.io');
 const http = require('http');
 
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage} = require('./utils/message');
 
 
 const port = process.env.PORT || 3000;
@@ -22,6 +22,14 @@ io.on('connection', socket => {
    console.log('new user connected');
    connectionCount++;
    io.emit('connectionCountChanged', connectionCount);
+
+   socket.on('disconnect', socket => {
+      console.log('user disconnected');
+      connectionCount--;
+      io.emit('connectionCountChanged', connectionCount);
+      io.emit('newMessage',
+      generateMessage('Admin', 'Someone left the chatroom'));
+   });
 
    socket.emit('newMessage',
       generateMessage('Admin', 'Welcome to the chatroom!'));
@@ -45,10 +53,9 @@ io.on('connection', socket => {
       //io.emit('newMessage', data);
    });
 
-   socket.on('disconnect', socket => {
-      console.log('user disconnected');
-      connectionCount--;
-      io.emit('connectionCountChanged', connectionCount);
+   socket.on('createLocationMessage', (data, callback) => {
+      io.emit('newLocationMessage',
+         generateLocationMessage('Admin', data.lat, data.lng));
    });
 });
 
