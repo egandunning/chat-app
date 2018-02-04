@@ -13,21 +13,36 @@ var messageTextBox = $('[name=message]');
 
 socket.on('newMessage', function(data) {
    console.log('New message', data);
-   var li = $('<li></li>');
+   var li = $('<li class="message__text"></li>');
 
-   li.text(data.from + ': ' + data.text + ' (' + data.createdAt + ')');
+   var msg = $('<span class="message__from"></span>');
+   msg.text(data.from + ': ');
+
+   var date = $('<span class="message__date"></span>');
+   date.text(data.createdAt);
+   
+   li.append(msg);
+   li.append(data.text);
+   li.append(date);
 
    messages.append(li);
 });
 
 socket.on('newLocationMessage', function(data) {
-   var li = $('<li></li>');
+   var li = $('<li class="message__text"></li>');
+
+   var msg = $('<span class="message__from"></span>');
+   msg.text(data.from + ': ');
 
    var link = $('<a target="_blank">My location</a>');
    link.attr('href', data.url);
    
-   li.text(data.from + ': ');
+   var date = $('<span class="message__date"></span>');
+   date.text(data.createdAt);
+
+   li.append(msg);
    li.append(link);
+   li.append(date);
 
    messages.append(li);
 })
