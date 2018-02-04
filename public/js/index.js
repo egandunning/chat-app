@@ -15,9 +15,8 @@ socket.on('newMessage', function(data) {
    console.log('New message', data);
    var li = $('<li></li>');
 
-   var dateString = new Date(data.createdAt).toString();
-
-   li.text(data.from + ': ' + data.text + ' (' + dateString + ')');
+   //var dateString = new Date(data.createdAt).toString();
+   li.text(data.from + ': ' + data.text + ' (' + data.createdAt + ')');
 
    messages.append(li);
 });
