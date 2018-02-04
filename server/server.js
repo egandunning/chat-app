@@ -54,8 +54,11 @@ io.on('connection', socket => {
    });
 
    socket.on('createLocationMessage', (data, callback) => {
-      io.emit('newLocationMessage',
-         generateLocationMessage('Admin', data.lat, data.lng));
+      socket.broadcast.emit('newLocationMessage',
+         generateLocationMessage('User', data.lat, data.lng));
+
+      socket.emit('newLocationMessage',
+         generateLocationMessage('You', data.lat, data.lng));
    });
 });
 
