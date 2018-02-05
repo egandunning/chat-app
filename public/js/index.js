@@ -10,41 +10,29 @@ socket.on('disconnect', function() {
 
 var messages = $('#messages');
 var messageTextBox = $('[name=message]');
+var template = $('#message-template').html();
+var locationTemplate = $('#location-message-template').html();
 
 socket.on('newMessage', function(data) {
    console.log('New message', data);
-   var li = $('<li class="message__text"></li>');
 
-   var msg = $('<span class="message__from"></span>');
-   msg.text(data.from + ': ');
-
-   var date = $('<span class="message__date"></span>');
-   date.text(data.createdAt);
-   
-   li.append(msg);
-   li.append(data.text);
-   li.append(date);
-
-   messages.append(li);
+   var html = Mustache.render(template, {
+      text: data.text,
+      from: data.from,
+      date: data.createdAt
+   });
+   messages.append(html);
 });
 
 socket.on('newLocationMessage', function(data) {
-   var li = $('<li class="message__text"></li>');
 
-   var msg = $('<span class="message__from"></span>');
-   msg.text(data.from + ': ');
+   var html = Mustache.render(locationTemplate, {
+      url: data.url,
+      from: data.from,
+      date: data.createdAt
+   });
 
-   var link = $('<a target="_blank">My location</a>');
-   link.attr('href', data.url);
-   
-   var date = $('<span class="message__date"></span>');
-   date.text(data.createdAt);
-
-   li.append(msg);
-   li.append(link);
-   li.append(date);
-
-   messages.append(li);
+   messages.append(html);
 })
 
 socket.on('connectionCountChanged', function(count) {

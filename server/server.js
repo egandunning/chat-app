@@ -41,7 +41,7 @@ io.on('connection', socket => {
       console.log('create message: ', data);
 
       socket.emit('newMessage',
-         generateMessage('you', data.text));
+         generateMessage('You', data.text));
 
       //broadcast to everyone except socket
       socket.broadcast.emit('newMessage',

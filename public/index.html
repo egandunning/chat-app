@@ -32,12 +32,29 @@
     </div>
   </div>
 
+  <script id="message-template" type="text/template">
+    <li class="message__text">
+      <span class="message__from">{{from}}:</span>
+      {{text}}
+      <span class="message__date">{{date}}</span>
+    </li>
+  </script>
+
+  <script id="location-message-template" type="text/template">
+    <li class="message__text">
+      <span class="message__from">{{from}}:</span>
+      <a href="{{url}}" target="blank">My location</a>
+      <span class="message__date">{{date}}</span>
+    </li>
+  </script>
+
   <!-- given to us by the socket.io package -->
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
     crossorigin="anonymous">
   </script>
+  <script src="/js/libs/mustache.js"></script>
   <script src="/js/index.js"></script>
 </body>
 </html>
