@@ -34,14 +34,21 @@ io.on('connection', socket => {
       if(!isRealString(params.name) || !isRealString(params.room)) {
          callback('Display name and room name must not be blank');
       }
+
+      socket.join(params.room);
+
+      socket.emit('newMessage',
+         generateMessage('Admin', 'Welcome to the chatroom!'));
+
+      socket.broadcast.to(params.room).emit('newMessage',
+         generateMessage('Admin', `${params.name} joined the chatroom`));
+
+      callback();
    });
 
-   socket.emit('newMessage',
-      generateMessage('Admin', 'Welcome to the chatroom!'));
+   
 
-   socket.broadcast.emit('newMessage',
-      generateMessage('Admin', 'Someone joined the chatroom'));
-
+   
    socket.on('createMessage', (data, callback) => {
       console.log('create message: ', data);
 
