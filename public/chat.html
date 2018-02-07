@@ -17,7 +17,7 @@
   <div class="chat__main">
     <p id="welcome" class="bold-padded">
       Welcome to the chat app.
-      <span class="bold" id="userCount">0</span> users in the chatroom!</p>
+    </p>
     <hr>
     <div class="chat__messages" id="messages">
       <ol >
@@ -37,17 +37,15 @@
   <script id="message-template" type="text/template">
     <span class="message__date">{{date}}</span>
     <li class="message__text">
-      <span class="message__from">{{from}}:</span>
-      
-
-      {{text}}
+      <span class="message__from">{{from}}:</span>      {{text}}
     </li>
   </script>
 
   <script id="location-message-template" type="text/template">
+    <span class="message__date">{{date}}</span>
     <li class="message__text">
       <span class="message__from">{{from}}:</span>
-      <span class="message__date">{{date}}</span>
+      
       <a href="{{url}}" target="blank">My location</a>
     </li>
   </script>
