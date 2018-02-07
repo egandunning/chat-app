@@ -4,7 +4,7 @@ console.log(window.location.search);
 
 
 var messages = $('#messages');
-var welcome = $('#welcome');
+var userList = $('#users');
 var messageTextBox = $('[name=message]');
 var template = $('#message-template').html();
 var locationTemplate = $('#location-message-template').html();
@@ -45,6 +45,17 @@ socket.on('disconnect', function() {
    console.log('unable to connect');
 });
 
+socket.on('updateUserList', function(users) {
+   console.log('users list:', users);
+   var ol = $('<ol><ol>');
+   users.forEach(function(user) {
+      var li = $('<li></li>');
+      li.text(user);
+      ol.append(li);
+   });
+   userList.html(ol);
+});
+
 socket.on('newMessage', function(data) {
 
    var html = Mustache.render(template, {
@@ -67,10 +78,6 @@ socket.on('newLocationMessage', function(data) {
    messages.append(html);
    scrollToBottom();
 })
-
-socket.on('connectionCountChanged', function(count) {
-   $('#userCount').html(count);
-});
 
 $('#messageForm').on('submit', function(e) {
    //prevent page reload
