@@ -1,5 +1,8 @@
 let socket = io(); //make request to server to open web socket
 
+console.log(window.location.search);
+
+
 var messages = $('#messages');
 var welcome = $('#welcome');
 var messageTextBox = $('[name=message]');
@@ -22,14 +25,25 @@ function scrollToBottom() {
 }
 
 socket.on('connect', function() {
+   var searchParams = new URLSearchParams(window.location.search);
+   var params = {
+      name: searchParams.get('chatName'),
+      room: searchParams.get('roomName')
+   };
+   socket.emit('join', params, function(err) {
+      if(err) {
+         alert(err);
+         window.location.href = '/';
+      } else {
+         console.log('successfully joined room');
+      }
+   });
    console.log('connected');
 });
 
 socket.on('disconnect', function() {
    console.log('unable to connect');
 });
-
-
 
 socket.on('newMessage', function(data) {
 

@@ -9,7 +9,6 @@ describe('Generate Message', () => {
 
       expect(msg.from).toBe('user');
       expect(msg.text).toBe('message text');
-      expect(msg.createdAt).toBeGreaterThanOrEqual(beforeTime);
    });
 });
 
@@ -20,6 +19,5 @@ describe('generateLocationMessage', () => {
 
       expect(msg.from).toBe('user');
       expect(msg.url).toBe('https://google.com/maps?q=1,1');
-      expect(msg.createdAt).toBeGreaterThanOrEqual(beforeTime);
    });
 });

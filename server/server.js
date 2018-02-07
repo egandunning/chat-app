@@ -4,10 +4,9 @@ const socketIO = require('socket.io');
 const http = require('http');
 
 const {generateMessage, generateLocationMessage} = require('./utils/message');
-
+const {isRealString} = require('./utils/validators');
 
 const port = process.env.PORT || 3000;
-const fs = require('fs');
 
 const app = express();
 const server = http.createServer(app);
@@ -29,6 +28,12 @@ io.on('connection', socket => {
       io.emit('connectionCountChanged', connectionCount);
       io.emit('newMessage',
       generateMessage('Admin', 'Someone left the chatroom'));
+   });
+
+   socket.on('join', (params, callback) => {
+      if(!isRealString(params.name) || !isRealString(params.room)) {
+         callback('Display name and room name must not be blank');
+      }
    });
 
    socket.emit('newMessage',
