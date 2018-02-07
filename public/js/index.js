@@ -1,5 +1,26 @@
 let socket = io(); //make request to server to open web socket
 
+var messages = $('#messages');
+var welcome = $('#welcome');
+var messageTextBox = $('[name=message]');
+var template = $('#message-template').html();
+var locationTemplate = $('#location-message-template').html();
+
+function scrollToBottom() {
+
+   var newMessage = messages.children('li:last-child');
+
+   var clientHeight = messages.prop('clientHeight');
+   var scrollTop = messages.prop('scrollTop');
+   var scrollHeight = messages.prop('scrollHeight');
+   var newMessageHeight = newMessage.innerHeight();
+   var lastMessageHeight = newMessage.prev().innerHeight();
+
+   if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+      messages.scrollTop(scrollHeight);
+   }
+}
+
 socket.on('connect', function() {
    console.log('connected');
 });
@@ -8,20 +29,18 @@ socket.on('disconnect', function() {
    console.log('unable to connect');
 });
 
-var messages = $('#messages');
-var messageTextBox = $('[name=message]');
-var template = $('#message-template').html();
-var locationTemplate = $('#location-message-template').html();
+
 
 socket.on('newMessage', function(data) {
-   console.log('New message', data);
 
    var html = Mustache.render(template, {
       text: data.text,
       from: data.from,
       date: data.createdAt
    });
+   console.log();
    messages.append(html);
+   scrollToBottom();
 });
 
 socket.on('newLocationMessage', function(data) {
@@ -31,8 +50,8 @@ socket.on('newLocationMessage', function(data) {
       from: data.from,
       date: data.createdAt
    });
-
    messages.append(html);
+   scrollToBottom();
 })
 
 socket.on('connectionCountChanged', function(count) {
