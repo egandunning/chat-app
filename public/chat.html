@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="chat">
+  
+
+  <div class="chat__sidebar">
+    <h3>People</h3>
+    <div id="users">
+    </div>
+  </div>
+
+  <div class="chat__main">
+    <p id="welcome" class="bold-padded">
+      Welcome to the chat app.
+      <span class="bold" id="userCount">0</span> users in the chatroom!</p>
+    <hr>
+    <div class="chat__messages" id="messages">
+      <ol >
+      </ol>
+    </div>
+
+    <div class="chat__footer">
+      <form id="messageForm">
+        <input name="message" type="text" placeholder="Enter your message"
+          autofocus autocomplete="off"/>
+        <button>Send</button>
+      </form>
+      <button id="locationButton">Send Location</button>
+    </div>
+  </div>
+
+  <script id="message-template" type="text/template">
+    <span class="message__date">{{date}}</span>
+    <li class="message__text">
+      <span class="message__from">{{from}}:</span>
+      
+
+      {{text}}
+    </li>
+  </script>
+
+  <script id="location-message-template" type="text/template">
+    <li class="message__text">
+      <span class="message__from">{{from}}:</span>
+      <span class="message__date">{{date}}</span>
+      <a href="{{url}}" target="blank">My location</a>
+    </li>
+  </script>
+
+  <!-- given to us by the socket.io package -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+    crossorigin="anonymous">
+  </script>
+  <script src="/js/libs/mustache.js"></script>
+  <script src="/js/index.js"></script>
+</body>
+</html>
