@@ -8,6 +8,7 @@ var userList = $('#users');
 var messageTextBox = $('[name=message]');
 var template = $('#message-template').html();
 var locationTemplate = $('#location-message-template').html();
+var headerTemplate = $('#sidebar-template').html();
 
 function scrollToBottom() {
 
@@ -39,6 +40,10 @@ socket.on('connect', function() {
       }
    });
    console.log('connected');
+   
+   var html = Mustache.render(headerTemplate, {room: params.room});
+   console.log(html);
+   $('#heading').html(html);
 });
 
 socket.on('disconnect', function() {
