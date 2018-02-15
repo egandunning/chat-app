@@ -16,11 +16,13 @@ let users = new Users();
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-//register an event listener
+//Called when a user connects to the server. All other event handlers are
+//registered inside this function to keep track of connections.
 io.on('connection', socket => {
 
    let sockId = socket.id;
 
+   //Called when the user attempts to join the chat room.
    socket.on('join', (params, callback) => {
       if(!isRealString(params.name) || !isRealString(params.room)) {
          return callback('Display name and room name must not be blank');
@@ -40,6 +42,7 @@ io.on('connection', socket => {
       callback();
    });
 
+   //Called when the current user leaves the chat room.
    socket.on('disconnect', socket => {
       let user = users.removeUser(sockId);
 
@@ -50,6 +53,8 @@ io.on('connection', socket => {
       }
    });
 
+   //Called when the user sends a message. Sends the message to all users in the
+   //room.
    socket.on('createMessage', (data, callback) => {
       console.log('create message: ', data);
 
@@ -67,7 +72,9 @@ io.on('connection', socket => {
       //broadcast to all connected clients
       //io.emit('newMessage', data);
    });
-
+   
+   //Called when the user sends their location. Sends the location to all users
+   //in the room.
    socket.on('createLocationMessage', (data, callback) => {
       let user = users.getUser(sockId);
 
