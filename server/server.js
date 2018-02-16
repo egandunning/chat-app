@@ -13,6 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 let users = new Users();
+let rooms = new Rooms();
 
 app.use(express.static(path.join(__dirname, '../public')));
 
