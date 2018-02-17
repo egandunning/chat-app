@@ -18,3 +18,13 @@ describe('Add room', () => {
       expect(rooms.rooms.length).toBe(1);
    });
 });
+
+describe('Remove room', () => {
+   it('should delete a room', () => {
+      let rooms = new Rooms();
+      rooms.addRoom('room1');
+      rooms.addRoom('room2');
+      expect(rooms.removeRoom('room1')).toEqual({name:'room1'});
+      expect(rooms.rooms.length).toBe(1);
+   });
+});
