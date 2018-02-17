@@ -16,11 +16,13 @@ class Rooms {
     * @param {string} name - The name of the room. Must be a non-empty string.
     * @param {string} password - the password required to access room. Can be
     * blank.
+    * @return {Object} The room that was added.
     */
    addRoom(name, password) {
       if(!this.rooms.find(room => room.name === name)) {
          if(isRealString(name)) {
             this.rooms.push({name, password});
+            return {name, password};
          }
       }
    }
@@ -28,16 +30,18 @@ class Rooms {
    /**
     * Remove a room from the list of rooms.
     * @param {string} name - The name of the room to remove.
+    * @returns {Object} The room that was deleted.
     */
    removeRoom(name) {
       const roomIndex = this.rooms.find(room => room.name === name);
       if(roomIndex != -1) {
-         return this.rooms.slice(roomIndex, 1)[0];
+         return this.rooms.splice(roomIndex, 1)[0];
       }
    }
 
    /**
     * Get the list of room names.
+    * @returns {Array} List of rooms.
     */
    getRooms() {
       return this.rooms.map(room => room.name);
