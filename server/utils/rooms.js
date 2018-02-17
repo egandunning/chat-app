@@ -35,6 +35,13 @@ class Rooms {
          return this.rooms.slice(roomIndex, 1)[0];
       }
    }
+
+   /**
+    * Get the list of room names.
+    */
+   getRooms() {
+      return this.rooms.map(room => room.name);
+   }
 }
 
 module.exports = {Rooms};
