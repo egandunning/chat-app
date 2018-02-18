@@ -21,6 +21,9 @@ class Rooms {
    addRoom(name, password) {
       if(!this.rooms.find(room => room.name === name)) {
          if(isRealString(name)) {
+            if(!password) { //if password wasn't passed, set equal to empty
+               password = '';
+            }
             this.rooms.push({name, password});
             return {name, password};
          }
@@ -33,9 +36,9 @@ class Rooms {
     * @returns {Object} The room that was deleted.
     */
    removeRoom(name) {
-      const roomIndex = this.rooms.find(room => room.name === name);
-      if(roomIndex != -1) {
-         return this.rooms.splice(roomIndex, 1)[0];
+      const room = this.rooms.find(room => room.name === name);
+      if(room) {
+         return this.rooms.splice(room, 1)[0];
       }
    }
 
@@ -70,10 +73,7 @@ class Rooms {
     * undefined.
     */
    getRoom(name) {
-      const roomIndex = this.rooms.find(room => room.name === name);
-      if(roomIndex != -1) {
-         return this.rooms[roomIndex];
-      }
+      return this.rooms.find(room => room.name === name);
    }
 }
 
