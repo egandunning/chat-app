@@ -1,5 +1,8 @@
 #npm modules
 node_modules
 
+#jsdoc documentation
+out
+
 #vim temp files
 *.swp
