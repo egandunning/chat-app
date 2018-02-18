@@ -7,27 +7,30 @@ class Rooms {
     * @constructor
     */
    constructor() {
-      this.rooms = []
+      this.rooms = [];
    }
 
    /**
     * Add a new room to list of chat rooms. If the room already exists in the
     * list of rooms, the room is not added.
     * @param {string} name - The name of the room. Must be a non-empty string.
-    * @param {string} password - the password required to access room. Can be
-    * blank.
-    * @return {Object} The room that was added.
+    * @param {string} password - the password required to access room. Is
+    * optional, if ommitted, the password is stored as an empty string.
+    * @return {Object} The room object. This object is returned even if the
+    * room was not added to the list.
     */
    addRoom(name, password) {
+      
+      if(!password) {
+         password = '';
+      }
+      
       if(!this.rooms.find(room => room.name === name)) {
          if(isRealString(name)) {
-            if(!password) { //if password wasn't passed, set equal to empty
-               password = '';
-            }
             this.rooms.push({name, password});
-            return {name, password};
          }
       }
+      return {name, password}
    }
 
    /**

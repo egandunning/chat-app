@@ -6,6 +6,7 @@ const http = require('http');
 const {generateMessage, generateLocationMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validators');
 const {Users} = require('./utils/users');
+const {Rooms} = require('./utils/rooms');
 
 const port = process.env.PORT || 3000;
 
@@ -28,6 +29,11 @@ io.on('connection', socket => {
       if(!isRealString(params.name) || !isRealString(params.room)) {
          return callback('Display name and room name must not be blank');
       }
+
+      /*let roomToJoin = rooms.addRoom(params.room, params.password);
+      if(!canJoin(params.room, params.password, roomToJoin)) {
+         return callback('Invalid room password');
+      }*/
 
       socket.join(params.room);
       users.removeUser(sockId);
