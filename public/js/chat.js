@@ -29,7 +29,8 @@ socket.on('connect', function() {
    var searchParams = new URLSearchParams(window.location.search);
    var params = {
       name: searchParams.get('chatName'),
-      room: searchParams.get('roomName')
+      room: searchParams.get('roomName'),
+      password: searchParams.get('roomPassword')
    };
    socket.emit('join', params, function(err) {
       if(err) {
