@@ -60,7 +60,8 @@ class Rooms {
     * name and password of the given room object.
     */
    canJoin(name, password, roomToJoin) {
-      if(name === roomToJoin.name && password === roomToJoin.password) {
+      if(roomToJoin && name === roomToJoin.name &&
+            password === roomToJoin.password) {
          return true;
       }
       return false;
