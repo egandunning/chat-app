@@ -53,11 +53,14 @@ class Rooms {
     * @param {string} name - Name of the room to join.
     * @param {string} password - The password of the room to join.
     * @param {Object} roomToJoin - The room to join
+    * @returns {boolean} True if the given room name, password pair matches the
+    * name and password of the given room object.
     */
    canJoin(name, password, roomToJoin) {
       if(name === roomToJoin.name && password === roomToJoin.password) {
          return true;
       }
+      return false;
    }
    
    /**
