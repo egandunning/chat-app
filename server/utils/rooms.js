@@ -59,7 +59,19 @@ class Rooms {
          return true;
       }
    }
-      
+   
+   /**
+    * Gets a room object by name.
+    * @param {string} name - Room name to find.
+    * @returns {Object} The room object if found. If not found, returns
+    * undefined.
+    */
+   getRoom(name) {
+      const roomIndex = this.rooms.find(room => room.name === name);
+      if(roomIndex != -1) {
+         return this.rooms[roomIndex];
+      }
+   }
 }
 
 module.exports = {Rooms};
