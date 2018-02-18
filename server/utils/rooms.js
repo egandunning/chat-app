@@ -46,6 +46,20 @@ class Rooms {
    getRooms() {
       return this.rooms.map(room => room.name);
    }
+
+   /**
+    * Checks if a given room name, password pair match the passed in room
+    * object.
+    * @param {string} name - Name of the room to join.
+    * @param {string} password - The password of the room to join.
+    * @param {Object} roomToJoin - The room to join
+    */
+   canJoin(name, password, roomToJoin) {
+      if(name === roomToJoin.name && password === roomToJoin.password) {
+         return true;
+      }
+   }
+      
 }
 
 module.exports = {Rooms};
