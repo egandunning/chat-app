@@ -8,24 +8,24 @@
 
 <body class="centered-form">
   <div class="centered-form__form">
-    <form action="/login" method="post" enctype="text/plain">
+    <form action="#">
       <div class="form-field">
         <h3>Join a Chatroom</h3>
       </div>
       <div class="form-field">
         <label>Display name</label>
-        <input type="text" name="chatName" autofocus>
+        <input type="text" name="chatName" id="displayName" autofocus>
       </div>
       <div class="form-field">
         <label>Chatroom name</label>
-        <input type="text" name="roomName">
+        <input type="text" name="roomName" id="roomName">
       </div>
       <div class="form-field">
         <label>Password</label>
-        <input type="password" name="roomPassword">
+        <input type="password" name="roomPassword" id="password">
       </div>
       <div class="form-field">
-        <input type="submit" text="Join room">
+        <button id="submit">Join room</button>
       </div>
     </form>
     <form action="/login" method="post"
@@ -33,5 +33,6 @@
       <input type="text" name="textField">
       <input type="submit">
     </form>
+    <script src="js/index.js"></script>
 </body>
 </html>

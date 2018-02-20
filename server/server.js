@@ -18,10 +18,10 @@ let users = new Users();
 let rooms = new Rooms();
 
 app.use(express.static(path.join(__dirname, '../public')));
-app.use(bodyParser.text());
+app.use(bodyParser.json());
 
 app.post('/login', (req, res) => {
-   console.log(req.body.chatName);
+   console.log(req.body);
    res.send(req.body);
 });
 

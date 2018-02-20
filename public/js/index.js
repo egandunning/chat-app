@@ -10,9 +10,15 @@ function joinRoom() {
 
    xhr.onreadystatechanged = handleReadyStateChanged;
    var data = {
-      displayName: document.getElementById('displayName'),
-      roomName: document.getElementById('roomName'),
-      password: document.getElementById('password')
+      displayName: document.getElementById('displayName').value,
+      roomName: document.getElementById('roomName').value,
+      password: document.getElementById('password').value
    }
    xhr.send(JSON.stringify(data));
 }
+
+document.getElementById('submit').addEventListener('click', function(event) {
+   event.preventDefault();
+   console.log('in event listener');
+   joinRoom();
+});
