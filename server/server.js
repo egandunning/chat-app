@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const socketIO = require('socket.io');
 const http = require('http');
+const bodyParser = require('body-parser');
 
 const {generateMessage, generateLocationMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validators');
@@ -17,6 +18,12 @@ let users = new Users();
 let rooms = new Rooms();
 
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(bodyParser.text());
+
+app.post('/login', (req, res) => {
+   console.log(req.body.chatName);
+   res.send(req.body);
+});
 
 //Called when a user connects to the server. All other event handlers are
 //registered inside this function to keep track of connections.
