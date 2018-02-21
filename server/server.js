@@ -14,14 +14,32 @@ const port = process.env.PORT || 3000;
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+const jsonParser = bodyParser.json();
 let users = new Users();
 let rooms = new Rooms();
 
 app.use(express.static(path.join(__dirname, '../public')));
-app.use(bodyParser.json());
 
-app.post('/login', (req, res) => {
-   console.log(req.body);
+app.post('/login', jsonParser, (req, res) => {
+   
+   if(!req.body) {
+      return res.status(400).send();
+   }
+   
+   const displayName = req.body.displayName;
+   const roomName = req.body.roomName;
+   const password = req.body.password;
+
+   //if display name and room name are nonempty strings and password is a
+   //string, reject room join attempt and send informational message
+   if(!(isRealString(displayName) &&
+         isRealString(roomName) &&
+         typeof password === 'string')) {
+      return res.status(401).send({
+         err: 'Display name and room name must not be blank'
+      });
+   }
+
    res.send(req.body);
 });
 

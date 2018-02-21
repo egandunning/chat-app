@@ -1,7 +1,7 @@
 function joinRoom() {
    var xhr = new XMLHttpRequest();
    xhr.open('POST', '/login');
-
+   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
    function handleReadyStateChanged() {
       if(xhr.readyState === 4 && xhr.status === 200) {
          console.log(xhr.responseText);
@@ -19,6 +19,5 @@ function joinRoom() {
 
 document.getElementById('submit').addEventListener('click', function(event) {
    event.preventDefault();
-   console.log('in event listener');
    joinRoom();
 });
