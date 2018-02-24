@@ -1,3 +1,6 @@
+/**
+ * Send room joining info using AJAX
+ */
 function joinRoom() {
    var xhr = new XMLHttpRequest();
    xhr.open('POST', '/login');
